@@ -13,6 +13,60 @@ public class DAOContas extends DAOBanco {
 	protected int limite;
 	protected double rendimento;
 	protected int dataBase;
+	
+	public boolean existeConta(int chave) {
+		Corrente cc;
+		Poupanca cp;
+		for (int i = 0; i < contas.size(); i++) {
+			if (contas.get(i) instanceof Corrente) {
+				cc = (Corrente) contas.get(i);
+				if (cc.getNumero() == chave) {
+
+					return true;
+
+				}
+			} else {
+				cp = (Poupanca) contas.get(i);
+				if (cp.getNumero() == chave) {
+
+					return true;
+
+				}
+			}
+		}
+		return false;
+
+	}
+	
+	public boolean verificaLoguin(int chave) {
+		Conta conta;
+		for (int i = 0; i < contas.size(); i++) {
+			if (contas.get(i) instanceof Conta) {
+				conta = (Conta) contas.get(i);
+				if (conta.getNumero() == chave) {
+
+					return true;
+
+				}
+			}
+		}
+		return false;
+	}
+
+	public boolean verificaSenha(int chave) {
+		Conta conta;
+		for (int i = 0; i < contas.size(); i++) {
+			if (contas.get(i) instanceof Conta) {
+				conta = (Conta) contas.get(i);
+				if (conta.getSenha() == chave) {
+
+					return true;
+
+				}
+			}
+		}
+		return false;
+	}
 
 	public boolean existeCliente(Cliente cliente) {
 		return clientes.contains(cliente);

@@ -5,15 +5,24 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+import Controller.DAOBanco;
+import Controller.DAOClientes;
+import Controller.DAOContas;
+
 import java.util.*;
 import java.awt.*;
 
 public class ICadastros extends JFrame implements ActionListener {
 	private JPanel PainelPrincipal;
 	private JButton buttonCadastroPF, buttonCadastroPJ;
-
-	public ICadastros() {
+	DAOClientes cliente;
+	 DAOContas daoContas ;
+	 DAOBanco daoBanco;
+	public ICadastros(DAOClientes cliente, DAOContas daoContas, DAOBanco daoBanco) {
 		super("Janela Cadastros");
+		this.cliente = cliente;
+		this.daoBanco = daoBanco;
+		this.daoContas = daoContas;
 		setBounds(100, 100, 350, 300);
 		PainelPrincipal = new JPanel();
 		PainelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -24,6 +33,24 @@ public class ICadastros extends JFrame implements ActionListener {
 
 		PainelAbas.setBounds(10, 27, 297, 202);
 		PainelPrincipal.add(PainelAbas);
+		
+				JPanel PainelCliente = new JPanel();
+				PainelAbas.addTab("Cliente", PainelCliente);
+				PainelCliente.setLayout(null);
+				
+						buttonCadastroPF = new JButton("Pessoa Fisica");
+						buttonCadastroPF.setHorizontalAlignment(SwingConstants.LEFT);
+						buttonCadastroPF.setBounds(new Rectangle(10, 25, 122, 23));
+						PainelCliente.add(buttonCadastroPF);
+						buttonCadastroPF.setActionCommand("cadastrarPF");
+						buttonCadastroPF.addActionListener(this);
+						
+								buttonCadastroPJ = new JButton("Pessoa Juridica");
+								buttonCadastroPJ.setHorizontalAlignment(SwingConstants.LEFT);
+								buttonCadastroPJ.setBounds(new Rectangle(10, 67, 122, 23));
+								PainelCliente.add(buttonCadastroPJ);
+								buttonCadastroPJ.setActionCommand("cadastrarPJ");
+								buttonCadastroPJ.addActionListener(this);
 
 		JPanel PainelConta = new JPanel();
 		PainelAbas.addTab("Conta", PainelConta);
@@ -47,22 +74,6 @@ public class ICadastros extends JFrame implements ActionListener {
 		btnContaEspecial.setActionCommand("especial");
 		btnContaEspecial.addActionListener(this);
 
-		JPanel PainelCliente = new JPanel();
-		PainelAbas.addTab("Cliente", PainelCliente);
-		
-		
-		buttonCadastroPF = new JButton("Pessoa Fisica");
-		buttonCadastroPF.setBounds(new Rectangle(10, 11, 150, 23));
-		PainelCliente.add(buttonCadastroPF);
-		buttonCadastroPF.setActionCommand("cadastrarPF");
-		buttonCadastroPF.addActionListener(this);
-
-		buttonCadastroPJ = new JButton("Pessoa Juridica");
-		buttonCadastroPJ.setBounds(new Rectangle(10, 56, 150, 23));
-		PainelCliente.add(buttonCadastroPJ);
-		buttonCadastroPJ.setActionCommand("cadastrarPJ");
-		buttonCadastroPJ.addActionListener(this);
-		
 		setVisible(true);
 		setSize(350, 300);
 	}
@@ -71,9 +82,7 @@ public class ICadastros extends JFrame implements ActionListener {
 		String command = (String) e.getActionCommand();
 		switch (command) {
 		case ("corrente"):
-			
-			new IContaCorrente();
-
+			new IContaCorrente(cliente, daoContas, daoBanco);
 			break;
 		case ("especial"):
 			new IContaEspecial();
@@ -81,12 +90,12 @@ public class ICadastros extends JFrame implements ActionListener {
 		case ("poupanca"):
 			new IContaPoupanca();
 			break;
-		case("cadastrarPF"):
-			new CadastroPFInterface();
-		break;
-		case("cadastrarPJ"):
-			new CadastroPJInterface();
-		break;
+		case ("cadastrarPF"):
+			new ICadastroPF(cliente);
+			break;
+		case ("cadastrarPJ"):
+			new ICadastroPJ(cliente);
+			break;
 		default:
 			dispose();
 		}

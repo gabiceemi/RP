@@ -7,22 +7,41 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.UIManager;
+import javax.swing.UIManager.*;
 
+import Controller.DAOBanco;
+import Controller.DAOClientes;
+import Controller.DAOContas;
+import Model.PessoaFisica;
+
+@SuppressWarnings("serial")
 public class IPrincipal extends JFrame implements ActionListener {
-	private JLabel menu;
 	private JButton buttonCadastros,buttonGerenciar, buttonOperacoes, buttonPesquisar, buttonExit;
-
-	public IPrincipal() {
+	private DAOClientes cliente;
+	private PessoaFisica pf;
+	private DAOContas daoContas ;
+	private  DAOBanco daoBanco;
+	public IPrincipal(DAOClientes cliente, DAOContas daoContas, DAOBanco daoBanco) {
 
 		super("Menu");
+		this.cliente = cliente;
+		this.daoBanco = daoBanco;
+		this.daoContas = daoContas;
+		try {
+		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+		        if ("Nimbus".equals(info.getName())) {
+		            UIManager.setLookAndFeel(info.getClassName());
+		            break;
+		        }
+		    }
+		} catch (Exception e) {
+		   
+		}
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		Container content = getContentPane();
 		content.setLayout(null);
-
-		menu = new JLabel("MENU");
-		menu.setBounds(new Rectangle(100, 10, 130, 25));
-		content.add(menu);
 
 		buttonCadastros = new JButton("Cadastros");
 		buttonCadastros.setBounds(new Rectangle(40, 40, 150, 40));
@@ -58,10 +77,12 @@ public class IPrincipal extends JFrame implements ActionListener {
 	}
 
 	public static void main(String[] args) {
-
-		IPrincipal janela = new IPrincipal();
-		janela.setSize(250, 330);
+		DAOClientes cliente = new DAOClientes();
+		DAOContas daoContas = new DAOContas();
+		DAOBanco daoBanco = new DAOBanco();
 		
+		IPrincipal janela = new IPrincipal(cliente,daoContas,daoBanco);
+		janela.setSize(250, 370);
 
 	}
 
@@ -70,13 +91,13 @@ public class IPrincipal extends JFrame implements ActionListener {
 		String command = (String) e.getActionCommand();
 		switch (command) {
 		case ("cadastrar"):
-			new ICadastros();
+			new ICadastros(cliente, daoContas, daoBanco);
 			break;
 		case ("gerenciar"):
-			new IGerenciar();
+			new IGerenciar(cliente,pf);
 			break;
 		case ("operacoes"):
-			new IOperacoes();
+			new ILogin(daoContas);
 		break;
 		case ("pesquisar"):
 			new IPesquisar();

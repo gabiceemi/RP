@@ -1,24 +1,24 @@
 package Model;
 public class No {
-	  private Object movimento;
+	  private Object obj;
 	    private No prox;
 	    
 	    public No () {
-	        this.movimento = null;
+	        this.obj = null;
 	        this.prox = null;
 	    }
 	    
-	    public No (Object movimento, No prox) {
-	        this.movimento = movimento;
+	    public No (Object obj, No prox) {
+	        this.obj = obj;
 	        this.prox = prox;
 	    }
 
-	    public void setMovimento (Object movimento) {
-	        this.movimento = movimento;
+	    public void setObj (Object obj) {
+	        this.obj = obj;
 	    }
 
-	    public Object getMovimento () {
-	        return this.movimento;
+	    public Object getObj () {
+	        return this.obj;
 	    }
 	    
 	    public void setProx (No prox) {
@@ -28,4 +28,6 @@ public class No {
 	    public No getProx () {
 	        return this.prox;
 	    }
+
+		
 }

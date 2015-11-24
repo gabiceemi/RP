@@ -1,9 +1,10 @@
 package Model;
-import java.util.*;
 public class ListaLigada implements IListaLigada{
 	No inicio;
+	int size = 0;
 	public ListaLigada(){
-		this.inicio = null;		
+		this.inicio = null;	
+		this.size = 0;
 	}
 
 	@Override
@@ -17,39 +18,24 @@ public class ListaLigada implements IListaLigada{
 	}
 
 	@Override
-	public void add(Object movimento) {
+	public void addLast(Object obj) {
 		 No aux = this.inicio;
 	        
 	        if (!this.isEmpty()) {
 	            while (aux.getProx() != null)
 	                aux = aux.getProx();
-	            aux.setProx(new No (movimento, null));
+	            aux.setProx(new No (obj, null));
 	        }else{
-	            this.inicio = new No (movimento, null);
+	            this.inicio = new No (obj, null);
 	        }
+	        this.size = size+1;
 	}
 
-	@Override
-	public IListaLigada subList(String dataInicial, String dataFinal) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return size;
 	}
 
-	@Override
-	public Object get(int i) {
-		return null;
-	}
-
-	@Override
-	public int indexOf(Object obj) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 }
