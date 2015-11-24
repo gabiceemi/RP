@@ -17,6 +17,7 @@ public abstract class Conta {
 	protected boolean situacao;
 	protected int senha;
 
+	IListaLigada listaMovimento = new ListaLigada();
 	public Conta(Cliente cliente, boolean situacao, int senha) {
 		SimpleDateFormat data = new SimpleDateFormat("dd MM yyyy");
 		setDataDeAbertura(data.format(new Date()));
@@ -31,9 +32,13 @@ public abstract class Conta {
 	}
 	public abstract boolean saque(double valor);
 
+
 	public boolean deposito(double valor) {
 		if (valor > 0) {
 			saldo += valor;
+			String tipo = "deposito";
+			Movimentos move = new Movimentos(tipo, valor);
+			listaMovimento.addLast(move);
 			return true;
 		}
 		return false;

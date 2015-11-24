@@ -13,7 +13,10 @@ public class Especial extends Corrente implements Serializable{
 	@Override
 	public boolean saque(double valor) {
 		if((saldo+limite)>=valor){
-			saldo=saldo-valor;
+			this.saldo=saldo-valor;
+			String tipo = "saque";
+			Movimentos move = new Movimentos(tipo, valor);
+			listaMovimento.addLast(move);
 			return true;
 		}
 		else{

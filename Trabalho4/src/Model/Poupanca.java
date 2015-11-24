@@ -35,15 +35,22 @@ public class Poupanca extends Conta {
 		     }
 
 		public boolean saque(double valor) {
+			if(saldo>=valor){
+				this.saldo=saldo-valor;
+				String tipo = "saque";
+				Movimentos move = new Movimentos(tipo, valor);
+				listaMovimento.addLast(move);
 			
-			return false;
+			return true;
+			}
+			else return false;
 		}
 
 
-		@Override
+		@Override	
 		public double getSaldoTotal() {
 			// TODO Auto-generated method stub
-			return 0;
+			return getSaldo();
 		}
 
 			

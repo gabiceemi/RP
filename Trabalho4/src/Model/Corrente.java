@@ -11,12 +11,14 @@ public class Corrente extends Conta {
 
 	public boolean saque(double valor) {
 		if(saldo>=valor){
-			saldo=saldo-valor;
+			this.saldo=saldo-valor;
+			String tipo = "saque";
+			Movimentos move = new Movimentos(tipo, valor);
+			listaMovimento.addLast(move);
 			return true;
 		}
 		return false;
 	}
-
 
 	@Override
 	public double getSaldoTotal() {
