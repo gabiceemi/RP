@@ -1,6 +1,6 @@
 package Controller;
 
-import java.io.File;
+import java.io.*;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -9,6 +9,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 import javax.swing.filechooser.FileSystemView;
 
@@ -17,12 +18,14 @@ import Model.Conta;
 import Model.PessoaFisica;
 import Model.PessoaJuridica;
 
-public class DAOClientes extends DAOBanco {
+public class DAOClientes{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	DAOBanco banco;
+	protected DAOBanco daoBanco;
+	protected DAOContas daoContas;
+	List<Cliente> clientes = new ArrayList<Cliente>();
 	private static final int[] pesoCNPJ = { 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
 
 	public void ordena() {
@@ -41,16 +44,14 @@ public class DAOClientes extends DAOBanco {
 	}
 		
 	public void imprimindoClientes(){
-		DAOContas conta;
 		String saida = "";
 		for (int i = 0; i < clientes.size(); i++) {
 			Cliente cli = (Cliente) clientes.get(i);
 			saida = saida + cli.getNome() + "\n" + "Telefone: " + cli.getTelefone() + "\n";
-			Conta contas = contas.getNumero();
-			if(contas!=null){
-			for (int j = 0; j < contas.size(); j++) {
-				Conta c = (Conta) contas.get(j);
-				saida = saida + c.contaToString()  + "saldo:" + c.getSaldo() + "\n";
+			if(daoContas.contas!=null){
+			for (int j = 0; j < daoContas.contas.size(); j++) {
+				Conta c = (Conta) daoContas.contas.get(j);
+				saida = saida + c.toString()  + "saldo:" + c.getSaldo() + "\n";
 			}
 			}
 			saida = saida + "-------------------------------------------------\n";

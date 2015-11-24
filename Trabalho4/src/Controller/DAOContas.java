@@ -5,7 +5,7 @@ import View.*;
 
 import java.util.*;
 
-public class DAOContas extends DAOBanco {
+public class DAOContas {
 
 	protected Conta conta;
 	protected Cliente cliente;
@@ -13,6 +13,9 @@ public class DAOContas extends DAOBanco {
 	protected int limite;
 	protected double rendimento;
 	protected int dataBase;
+	protected DAOBanco daoBanco;
+	protected DAOClientes daoClientes;
+	List<Conta> contas = new ArrayList<Conta>();
 	
 	public boolean existeConta(int chave) {
 		Corrente cc;
@@ -38,7 +41,7 @@ public class DAOContas extends DAOBanco {
 
 	}
 	
-	public boolean verificaLoguin(int chave) {
+	public boolean verificaLogin(int chave) {
 		Conta conta;
 		for (int i = 0; i < contas.size(); i++) {
 			if (contas.get(i) instanceof Conta) {
@@ -69,30 +72,56 @@ public class DAOContas extends DAOBanco {
 	}
 
 	public boolean existeCliente(Cliente cliente) {
-		return clientes.contains(cliente);
+		return daoClientes.clientes.contains(cliente);
 	}
+/**
+ * metodos de abertura de conta para pessoa fisica
+ * 
+ */
+	public void abrirContaEspecialPF(PessoaFisica pf, int senha, double limite) {
 
-	public void abrirContaEspecial(Cliente cliente, int senha, double limite) {
-
-		Especial ce = new Especial(cliente, true, senha, limite);
+		Especial ce = new Especial(pf, true, senha, limite);
 		contas.add(ce);
 		try {
-			armazenarContas(contas);
+			daoBanco.armazenarContas(contas);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	public void abrirContaCorrente(Cliente cliente, int senha) {
+	public void abrirContaCorrentePF(PessoaFisica pf, int senha) {
 
-		Corrente cc = new Corrente(cliente, true, senha);
+		Corrente cc = new Corrente(pf, true, senha);
 		contas.add(cc);
 	}
-	public void abrirContaPoupanca(Cliente cliente, int senha, double rendimento, int dataBase) {
+	public void abrirContaPoupancaPF(PessoaFisica pf, int senha, double rendimento, int dataBase) {
 
-		Poupanca cp = new Poupanca(cliente, true, senha,rendimento,dataBase);
+		Poupanca cp = new Poupanca(pf, true, senha,rendimento,dataBase);
 		contas.add(cp);
 	}
+	/**
+	 * Metodos de abertura de conta para pessoa juridica
+	 * 
+	 */
+	public void abrirContaEspecialPJ(PessoaJuridica pj, int senha, double limite) {
 
+		Especial ce = new Especial(pj, true, senha, limite);
+		contas.add(ce);
+		try {
+			daoBanco.armazenarContas(contas);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	public void abrirContaCorrentePJ(PessoaJuridica pj, int senha) {
+
+		Corrente cc = new Corrente(pj, true, senha);
+		contas.add(cc);
+	}
+	public void abrirContaPoupancaPJ(PessoaJuridica pj, int senha, double rendimento, int dataBase) {
+
+		Poupanca cp = new Poupanca(pj, true, senha,rendimento,dataBase);
+		contas.add(cp);
+	}
 	public Conta pesquisarMaiorSaldoCP() {
 		double maiorSaldo = -1;
 		int indiceMaior = 0;
@@ -230,15 +259,7 @@ public class DAOContas extends DAOBanco {
 		}
 		return saldo;
 	}
-	public static void main(String []args){
-		DAOContas c = new DAOContas();
-		c.abrirContaEspecial(null, 1234, 1.000);
-		try {
-			c.exibeContas();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+
+	
 	
 }

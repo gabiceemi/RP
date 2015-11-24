@@ -20,7 +20,9 @@ public class ListaLigada implements IListaLigada{
 	@Override
 	public void addLast(Object obj) {
 		 No aux = this.inicio;
-	        
+	        if(obj==null){
+	        	throw new NullPointerException("Objeto nulo.");
+	        }
 	        if (!this.isEmpty()) {
 	            while (aux.getProx() != null)
 	                aux = aux.getProx();

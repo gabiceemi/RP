@@ -61,16 +61,16 @@ public class ILogin extends JFrame implements ActionListener {
 		case ("Logar"):
 			String senhaS = textField_1.getText();
 			int senha = Integer.parseInt(senhaS);
-			String loguinS = textField.getText();
-			int loguin = Integer.parseInt(loguinS);
-			if (daocontas.verificaLoguin(loguin) == true) {
+			String loginS = textField.getText();
+			int login = Integer.parseInt(loginS);
+			if (daocontas.verificaLogin(login) == true) {
 				if (daocontas.verificaSenha(senha) == true) {
 					new IOperacoes(daocontas, cc, conta);
 				} else {
 					JOptionPane.showMessageDialog(null, "Senha Errada  " + daocontas.existeConta(senha));
 				}
 			} else {
-				JOptionPane.showMessageDialog(null, "Loguin Errado  " + daocontas.existeConta(loguin));
+				JOptionPane.showMessageDialog(null, "login Errado  " + daocontas.existeConta(login));
 			}
 			break;
 		}

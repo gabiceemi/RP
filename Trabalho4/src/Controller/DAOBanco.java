@@ -18,8 +18,8 @@ import Model.Conta;
 
 public class DAOBanco implements Serializable {
 
-	List<Conta> contas = new ArrayList<Conta>();
-	List<Cliente> clientes = new ArrayList<Cliente>();
+	
+	
 
 	public static void criaPastaNoDesktop() {
 		String pastaUsuario = FileSystemView.getFileSystemView().getHomeDirectory().getPath();

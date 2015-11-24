@@ -157,7 +157,7 @@ public class IContaCorrente extends JFrame implements ActionListener {
 					textFieldnumero.setText(numero);
 
 				} else {
-					JOptionPane.showMessageDialog(null, "Cliente não encontrado");
+					JOptionPane.showMessageDialog(null, "Cliente nï¿½o encontrado");
 					limpaCampos();
 				}
 
@@ -231,16 +231,14 @@ public void limpaCampos(){
 								try {
 								
 									
-									daocontas.abrirContaCorrentePf(pf, true, senha, limite, numero, dataDeAbertura);
-									daocontas.armazenarContas();
+									daocontas.abrirContaCorrentePF(pf,senha);
 								} catch (Exception e1) {
 									System.err.println("erro salvar :(");
 								}
 								
 								
-								JOptionPane.showMessageDialog(null, "Conta Corrente Pessoa Fisica Cadastrada ! "+"\n"+daocontas.listarContas());
+								JOptionPane.showMessageDialog(null, "Conta Corrente Pessoa Fisica Cadastrada ! ");
 							
-								daocontas.listarContas().toString().toString();
 							
 							    limpaCampos();
 
@@ -252,8 +250,7 @@ public void limpaCampos(){
 						if (cpf.length() == 12) {
 
 							try {
-								daocontas.abrirContaCorrentePj(pj, senha, limite, true, senha, dataDeAbertura);
-								daocontas.armazenarContas();
+								daocontas.abrirContaCorrentePJ(pj, senha);
 								
 								JOptionPane.showMessageDialog(null, "Conta Corrente Pessoa Juridica Cadastrada!");
 								
@@ -268,7 +265,7 @@ public void limpaCampos(){
 					}
 
 				} else {
-					JOptionPane.showMessageDialog(null, "Cliente Não existe");
+					JOptionPane.showMessageDialog(null, "Cliente nao existe");
 				}
 			
 			break;
